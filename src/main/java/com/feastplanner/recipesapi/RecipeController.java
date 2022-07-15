@@ -52,15 +52,15 @@ public class RecipeController {
                                   @RequestParam(defaultValue = "", required = false) String number,
                                   @RequestParam(defaultValue = "", required = false) String offset) {
 
-        String uri = webknoxUrl
-                + "search?query=" + query
-                + "&excludeIngredients=" + excludeIngredients
-                + "&intolerances=" + intolerances
-                + "&diet=" + diet
-                + "&cuisine=" + cuisine
-                + "&type=" + type
-                + "&number=" + number
-                + "&offset=" + offset;
+        String uri = webknoxUrl + "search?"
+                + (query != "" ? "query=" + query : "")
+                + (excludeIngredients != "" ? "&excludeIngredients=" + excludeIngredients : "")
+                + (intolerances != "" ? "&intolerances=" + intolerances : "")
+                + (diet != "" ? "&diet=" + diet : "")
+                + (cuisine != "" ? "&cuisine=" + cuisine : "")
+                + (type != "" ? "&type=" + type : "")
+                + (number != "" ? "&number=" + number : "")
+                + (offset != "" ? "&offset=" + offset : "");
 
         ResponseEntity<Recipes> recipesEntity = restTemplate.exchange(uri, HttpMethod.GET, createHttpEntity(),
                 Recipes.class);
