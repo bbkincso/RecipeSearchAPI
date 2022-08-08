@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.Collections;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class RecipeController {
 
@@ -43,7 +44,7 @@ public class RecipeController {
 
 
     @RequestMapping(value = "/all-recipes")
-    private Recipes getAllRecipes(@RequestParam(defaultValue = "", required = false) String query,
+    private Recipes getAllRecipes(@RequestParam(defaultValue = "all", required = false) String query,
                                   @RequestParam(defaultValue = "", required = false) String excludeIngredients,
                                   @RequestParam(defaultValue = "", required = false) String intolerances,
                                   @RequestParam(defaultValue = "", required = false) String diet,
@@ -52,8 +53,12 @@ public class RecipeController {
                                   @RequestParam(defaultValue = "", required = false) String number,
                                   @RequestParam(defaultValue = "", required = false) String offset) {
 
+
+
+        System.out.println("query=" + query);
+
         String uri = webknoxUrl + "search?"
-                + (query != "" ? "query=" + query : "")
+                + "query=" +query
                 + (excludeIngredients != "" ? "&excludeIngredients=" + excludeIngredients : "")
                 + (intolerances != "" ? "&intolerances=" + intolerances : "")
                 + (diet != "" ? "&diet=" + diet : "")
